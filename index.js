@@ -1,7 +1,24 @@
 const express = require("express")
-
+// 2 new import
+const connectDB = require("./config/db")
+const userRoutes = require("./routes/userRoute")
 const app = express()
+
 app.use(express.json()) // accept json in request
+
+// 2 new implementation
+connectDB()
+app.use("/api/auth", userRoutes)
+
+// task
+// create model student
+// stu_id Number, stu_email String, stu_name String
+// create a controller studentController to save the student data
+// create a router stuRouter with "/create" to point to studentController
+// use the router with "/api/students/" to poin to stuRouter
+// insert data with postman
+
+
 app.get("/", 
     (req, res) => {
         // logic
