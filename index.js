@@ -1,7 +1,11 @@
+require("dotenv").config() 
+
 const express = require("express")
 // 2 new import
 const connectDB = require("./config/db")
 const userRoutes = require("./routes/userRoute")
+const adminUserRoutes = require("./routes/admin/userRouteAdmin")
+
 const app = express()
 
 app.use(express.json()) // accept json in request
@@ -9,14 +13,14 @@ app.use(express.json()) // accept json in request
 // 2 new implementation
 connectDB()
 app.use("/api/auth", userRoutes)
+app.use("/api/admin/users", adminUserRoutes)
 
 // task
-// create model student
-// stu_id Number, stu_email String, stu_name String
-// create a controller studentController to save the student data
-// create a router stuRouter with "/create" to point to studentController
-// use the router with "/api/students/" to poin to stuRouter
-// insert data with postman
+// from student model make admin crud operation
+// create, get, getone, udpateone, deleteone
+// make a controllers -> admin -> studentcontroller
+// make a route routers -> admin -> studentRouteAdmin
+// implement the route in index.js and try all route in postman 
 
 
 app.get("/", 
@@ -219,9 +223,9 @@ app.delete("/blogs/:blogId",
         )
     }
 )
-
+const PORT = process.env.PORT
 app.listen(
-    5050,
+    PORT,
     () => {
         console.log("Server running")
     }
