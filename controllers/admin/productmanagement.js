@@ -51,12 +51,12 @@ exports.getProducts = async (req, res) => {
                 }
             ]
         }
-        const skip = (page - 1) * limit
+        const skips = (page - 1) * limit
 
         const products = await Product.find(filter)
             .populate("categoryId", "name")
             .populate("sellerId", "firstName email")
-            .skip(skip)
+            .skip(skips)
             .limit(Number(limit))
         const total = await Product.countDocuments(filter)
         return res.status(200).json(
@@ -75,6 +75,10 @@ exports.getProducts = async (req, res) => {
             }
         )
     } catch (err) {
+        console.log('getProducts', {
+            message: err.message,
+            stack: err.stack,
+          });
         return res.status(500).json(
             { success: false, message: "Server error" }
         )
