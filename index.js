@@ -8,10 +8,19 @@ const adminUserRoutes = require("./routes/admin/userRouteAdmin")
 const adminCategoryRoutes = require("./routes/admin/categoryRouteAdmin")
 
 const adminProductRoutes = require("./routes/admin/productRouteAdmin")
-
+const path = require("path") // 
+const cors = require("cors")
 const app = express()
 
+let corsOptions = {
+    origin: "*" // or list of domain to whitelist
+}
+app.use(cors(corsOptions))
+
 app.use(express.json()) // accept json in request
+app.use("/uploads", express.static(path.join(__dirname, "uploads")))
+// path.join concats 2 path string,
+// __dirname -> current directory path
 
 // 2 new implementation
 connectDB()

@@ -19,7 +19,9 @@ const productSchema = new mongoose.Schema(
             type: mongoose.Schema.ObjectId, // foreign key/referencing
             ref: 'User',
             required: true
-        }
+        },
+        // task make a multer to storage product image 
+        productImage: { type: String }
     }
 )
 
