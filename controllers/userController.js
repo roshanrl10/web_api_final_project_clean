@@ -84,7 +84,7 @@ exports.loginUser = async (req, res) => {
             "email": getUser.email,
             "username": getUser.username
         }
-        const token = jwt.sign(payload, process.env.SECRET,
+        const token = jwt.sign(payload, process.env.JWT_SECRET,
             { expiresIn: "7d" }
         )
         return res.status(200).json(
