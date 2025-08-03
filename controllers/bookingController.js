@@ -30,4 +30,28 @@ exports.getUserBookings = async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
+};
+
+// Get all bookings (admin endpoint)
+exports.getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find().populate("hotel");
+    res.status(200).json({ success: true, bookings });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+// Delete a booking
+exports.deleteBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const booking = await Booking.findByIdAndDelete(id);
+    if (!booking) {
+      return res.status(404).json({ success: false, message: "Booking not found" });
+    }
+    res.status(200).json({ success: true, message: "Booking cancelled successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 }; 

@@ -3,7 +3,8 @@ const router = express.Router()
 const { createUser, 
     getUsers, getOneUser, updateOne, deleteOne
 } = require("../../controllers/admin/usermanagement")
-const { authenticateUser, isAdmin } = require("../../middlewares/authorizedUsers")
+const authorizedUsers = require("../../middlewares/authorizedUsers")
+const isAdmin = require("../../middlewares/isAdmin")
 
 // 5 common api route
 router.post(
@@ -13,7 +14,7 @@ router.post(
 
 router.get(
     "/",
-    authenticateUser, // next() goes to next getUser
+    authorizedUsers, // next() goes to next getUser
     isAdmin,
     getUsers
 )

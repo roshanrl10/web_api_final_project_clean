@@ -1,12 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const { addEquipment, getAllEquipment } = require("../controllers/equipmentController");
-const isAdmin = require("../middlewares/isAdmin");
+const equipmentController = require("../controllers/equipmentController");
+const authorizedUsers = require("../middlewares/authorizedUsers");
 
-// Add a new equipment (admin only)
-router.post("/", isAdmin, addEquipment);
+// Equipment routes
+router.get("/", equipmentController.getAllEquipment);
+router.post("/", authorizedUsers, equipmentController.createEquipment);
 
-// Get all equipment (public)
-router.get("/", getAllEquipment);
+// Equipment rental routes
+router.get("/rentals/all", equipmentController.getEquipmentRentals);
+router.get("/rentals", equipmentController.getUserEquipmentRentals);
+router.post("/rentals", equipmentController.createEquipmentRental);
+router.put("/rentals/:id", equipmentController.updateEquipmentRental);
+router.delete("/rentals/:id", equipmentController.deleteEquipmentRental);
+
+// Equipment by ID routes (must come after /rentals routes)
+router.get("/:id", equipmentController.getEquipmentById);
+router.put("/:id", authorizedUsers, equipmentController.updateEquipment);
+router.delete("/:id", authorizedUsers, equipmentController.deleteEquipment);
 
 module.exports = router; 

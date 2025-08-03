@@ -5,11 +5,12 @@ const express = require("express")
 // 2 new import
 const connectDB = require("./config/db")
 const userRoutes = require("./routes/userRoute")
-const adminUserRoutes = require("./routes/admin/userRouteAdmin")
+// const adminUserRoutes = require("./routes/admin/userRouteAdmin") // Temporarily disabled due to middleware issue
 const hotelRoutes = require("./routes/hotelRoute");
 const bookingRoutes = require("./routes/bookingRoute");
 const equipmentRoutes = require("./routes/equipmentRoute");
-const equipmentBookingRoutes = require("./routes/equipmentBookingRoute");
+const agencyRoutes = require("./routes/agencyRoute");
+const weatherRoutes = require("./routes/weatherRoute");
 
 const path = require("path") // 
 const cors = require("cors")
@@ -31,7 +32,8 @@ app.use("/api/auth", userRoutes)
 app.use("/api/hotels", hotelRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/equipment", equipmentRoutes);
-app.use("/api/equipment-bookings", equipmentBookingRoutes);
+app.use("/api/agencies", agencyRoutes);
+app.use("/api/weather", weatherRoutes);
 
 
 // task
@@ -49,10 +51,10 @@ app.get("/",
     }
 )
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 app.listen(
     PORT,
     () => {
-        console.log("Server running")
+        console.log(`Server running on port ${PORT}`)
     }
 )
