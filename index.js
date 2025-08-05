@@ -11,6 +11,7 @@ const bookingRoutes = require("./routes/bookingRoute");
 const equipmentRoutes = require("./routes/equipmentRoute");
 const agencyRoutes = require("./routes/agencyRoute");
 const weatherRoutes = require("./routes/weatherRoute");
+const notificationRoutes = require("./routes/notificationRoute");
 
 const path = require("path") // 
 const cors = require("cors")
@@ -34,6 +35,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/equipment", equipmentRoutes);
 app.use("/api/agencies", agencyRoutes);
 app.use("/api/weather", weatherRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 
 // task
